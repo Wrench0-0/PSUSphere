@@ -1,0 +1,259 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}PSUSphere - Student Organizations{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/ready.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/demo.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    {% block extra_css %}{% endblock %}
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f3f3f3;
+            display: flex;
+        }
+        .sidebar {
+            width: 250px;
+            background-color: #fff;
+            height: 100vh;
+            padding: 20px;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+            overflow-y: auto;
+            position: fixed;
+            left: 0;
+            top: 0;
+        }
+        .sidebar-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            gap: 10px;
+        }
+        .sidebar-header-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #667eea;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+        .sidebar-header-text h3 {
+            font-size: 14px;
+            margin: 0;
+            font-weight: 600;
+        }
+        .sidebar-header-text p {
+            font-size: 12px;
+            color: #999;
+            margin: 0;
+        }
+        .sidebar-menu {
+            list-style: none;
+        }
+        .sidebar-menu li {
+            margin-bottom: 10px;
+        }
+        .sidebar-menu a {
+            color: #666;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+        .sidebar-menu a:hover {
+            background-color: #f0f0f0;
+            color: #667eea;
+        }
+        .sidebar-menu a i {
+            width: 20px;
+        }
+        .main-wrapper {
+            margin-left: 250px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .topbar {
+            background-color: #fff;
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .search-bar {
+            flex: 1;
+            max-width: 300px;
+        }
+        .search-bar input {
+            width: 100%;
+            padding: 8px 15px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            background-color: #f5f5f5;
+        }
+        .topbar-right {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        .topbar-right .badge {
+            background-color: #667eea;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 50%;
+            font-size: 12px;
+        }
+        .main-content {
+            flex: 1;
+            padding: 30px;
+            overflow-y: auto;
+        }
+        .stat-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            color: white;
+        }
+        .stat-icon {
+            font-size: 40px;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 5px;
+        }
+        .stat-content h3 {
+            font-size: 28px;
+            margin: 0;
+        }
+        .stat-content p {
+            margin: 0;
+            font-size: 12px;
+        }
+        .stat-orange {
+            background: linear-gradient(135deg, #FFA500 0%, #FF8C00 100%);
+        }
+        .stat-green {
+            background: linear-gradient(135deg, #66BB6A 0%, #43A047 100%);
+        }
+        .stat-red {
+            background: linear-gradient(135deg, #FF5252 0%, #FF3838 100%);
+        }
+        .stat-blue {
+            background: linear-gradient(135deg, #1E88E5 0%, #1565C0 100%);
+        }
+        .card {
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .card-header {
+            background-color: #fff;
+            border-bottom: 1px solid #eee;
+            padding: 20px;
+        }
+        .card-title {
+            font-weight: 600;
+            margin: 0;
+        }
+        .card-subtitle {
+            font-size: 12px;
+            color: #999;
+        }
+        .card-body {
+            padding: 20px;
+        }
+        footer {
+            background-color: #fff;
+            padding: 20px 30px;
+            border-top: 1px solid #eee;
+            text-align: center;
+            font-size: 12px;
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-header-avatar">H</div>
+            <div class="sidebar-header-text">
+                <h3>Hizrian</h3>
+                <p>Administrator</p>
+            </div>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a href="{% url 'home' %}"><i class="fas fa-home"></i> Dashboard</a></li>
+            <li><a href="{% url 'admin:studentorg_organization_changelist' %}"><i class="fas fa-sitemap"></i> Organizations</a></li>
+            <li><a href="{% url 'admin:studentorg_orgmember_changelist' %}"><i class="fas fa-users"></i> Organization Members</a></li>
+            <li><a href="{% url 'admin:studentorg_student_changelist' %}"><i class="fas fa-user-graduate"></i> Students</a></li>
+            <li><a href="{% url 'admin:studentorg_college_changelist' %}"><i class="fas fa-building"></i> Colleges</a></li>
+            <li><a href="{% url 'admin:studentorg_program_changelist' %}"><i class="fas fa-book"></i> Programs</a></li>
+        </ul>
+    </div>
+
+    <div class="main-wrapper">
+        <div class="topbar">
+            <div class="search-bar">
+                <input type="text" placeholder="Search ...">
+            </div>
+            <div class="topbar-right">
+                <i class="fas fa-envelope"></i>
+                <div style="position: relative;">
+                    <i class="fas fa-bell"></i>
+                    <span class="badge">3</span>
+                </div>
+                <img src="https://via.placeholder.com/32" style="width: 32px; height: 32px; border-radius: 50%;">
+                <span>Hizrian</span>
+                <a href="{% url 'admin:logout' %}" style="color: #667eea; text-decoration: none;">Logout</a>
+            </div>
+        </div>
+
+        <div class="main-content">
+            {% block content %}{% endblock %}
+        </div>
+
+        <footer>
+            <p>&copy; 2024 PSUSphere - All rights reserved.</p>
+        </footer>
+    </div>
+
+
+
+    <script src="{% static 'js/core/jquery.3.2.1.min.js' %}"></script>
+    <script src="{% static 'js/core/popper.min.js' %}"></script>
+    <script src="{% static 'js/core/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/plugin/chartist/chartist.min.js' %}"></script>
+    <script src="{% static 'js/plugin/chartist/plugin/chartist-plugin-tooltip.min.js' %}"></script>
+    <script src="{% static 'js/plugin/bootstrap-notify/bootstrap-notify.min.js' %}"></script>
+    <script src="{% static 'js/plugin/bootstrap-toggle/bootstrap-toggle.min.js' %}"></script>
+    <script src="{% static 'js/plugin/jquery-mapael/jquery.mapael.min.js' %}"></script>
+    <script src="{% static 'js/plugin/jquery-mapael/maps/world_countries.min.js' %}"></script>
+    <script src="{% static 'js/plugin/chart-circle/circles.min.js' %}"></script>
+    <script src="{% static 'js/plugin/jquery-scrollbar/jquery.scrollbar.min.js' %}"></script>
+    <script src="{% static 'js/ready.min.js' %}"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>
