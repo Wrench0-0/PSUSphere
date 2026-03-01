@@ -206,7 +206,7 @@
         </div>
         <ul class="sidebar-menu">
             <li><a href="{% url 'home' %}"><i class="fas fa-home"></i> Dashboard</a></li>
-            <li><a href="{% url 'admin:studentorg_organization_changelist' %}"><i class="fas fa-sitemap"></i> Organizations</a></li>
+            <li><a href="{% url 'organization-list' %}"><i class="fas fa-sitemap"></i> Organizations</a></li>
             <li><a href="{% url 'admin:studentorg_orgmember_changelist' %}"><i class="fas fa-users"></i> Organization Members</a></li>
             <li><a href="{% url 'admin:studentorg_student_changelist' %}"><i class="fas fa-user-graduate"></i> Students</a></li>
             <li><a href="{% url 'admin:studentorg_college_changelist' %}"><i class="fas fa-building"></i> Colleges</a></li>
@@ -225,7 +225,7 @@
                     <i class="fas fa-bell"></i>
                     <span class="badge">3</span>
                 </div>
-                <img src="https://via.placeholder.com/32" style="width: 32px; height: 32px; border-radius: 50%;">
+                <img src="{% static 'img/profile.jpg' %}" alt="user-img" style="width: 32px; height: 32px; border-radius: 50%;">
                 <span>Hizrian</span>
                 <a href="{% url 'admin:logout' %}" style="color: #667eea; text-decoration: none;">Logout</a>
             </div>
