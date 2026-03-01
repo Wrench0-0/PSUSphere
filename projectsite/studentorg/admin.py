@@ -16,13 +16,11 @@ class ProgramAdmin(admin.ModelAdmin):
     list_filter = ("college",)
 
 
-
 @admin.register(Organization)
 class OrganizationAdmin(admin.ModelAdmin):
     list_display = ("name", "college", "description")
     search_fields = ("name", "description")
     list_filter = ("college",)
-
 
 
 @admin.register(Student)
