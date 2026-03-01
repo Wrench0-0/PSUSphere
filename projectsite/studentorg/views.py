@@ -1,4 +1,5 @@
 from django.urls import reverse_lazy
+from django.utils import timezone
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
@@ -20,6 +21,19 @@ class HomePageView(ListView):
 
     def get_queryset(self):
         return Organization.objects.all().order_by("-created_at")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        current_year = timezone.now().year
+
+        context["students_count"] = Student.objects.count()
+        context["organizations_count"] = Organization.objects.count()
+        context["orgmembers_count"] = OrgMember.objects.count()
+        context["joined_this_year_count"] = OrgMember.objects.filter(
+            date_joined__year=current_year
+        ).count()
+
+        return context
 
 
 class OrganizationList(ListView):

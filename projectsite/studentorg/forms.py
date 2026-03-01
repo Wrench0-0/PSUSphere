@@ -1,3 +1,4 @@
+from django import forms
 from django.forms import ModelForm
 
 from .models import Organization, College, Program, Student, OrgMember
@@ -28,6 +29,10 @@ class StudentForm(ModelForm):
 
 
 class OrgMemberForm(ModelForm):
+    date_joined = forms.DateField(
+        widget=forms.SelectDateWidget(),
+    )
+
     class Meta:
         model = OrgMember
         fields = "__all__"

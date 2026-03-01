@@ -3,27 +3,32 @@ from faker import Faker
 from studentorg.models import College, Program, Organization, Student, OrgMember
 
 
+COLLEGE_NAMES = [
+    "College of Science",
+    "College of Business and Accountancy",
+    "College of Engineering",
+    "College of Architecture",
+    "College of Arts and Humanities",
+]
+
+
 class Command(BaseCommand):
-    help = 'Create initial data for the application'
+    help = "Create initial data for the application"
 
     def handle(self, *args, **kwargs):
-        self.create_colleges(8)
+        self.create_colleges()
         self.create_programs(10)
         self.create_organizations(10)
         self.create_students(50)
         self.create_memberships(10)
 
-    def create_colleges(self, count):
-        fake = Faker()
+    def create_colleges(self):
+        for name in COLLEGE_NAMES:
+            College.objects.get_or_create(college_name=name)
 
-        for _ in range(count):
-            college_name = f"College of {fake.word().title()} {fake.word().title()}"
-            College.objects.create(
-                college_name=college_name
-            )
-
-        self.stdout.write(self.style.SUCCESS(
-            'Initial data for colleges created successfully.'))
+        self.stdout.write(
+            self.style.SUCCESS("Initial data for colleges created successfully.")
+        )
 
     def create_programs(self, count):
         fake = Faker()
