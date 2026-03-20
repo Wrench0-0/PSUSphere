@@ -200,8 +200,13 @@
         <div class="sidebar-header">
             <div class="sidebar-header-avatar">H</div>
             <div class="sidebar-header-text">
-                <h3>Hizrian</h3>
-                <p>Administrator</p>
+                {% if request.user.is_authenticated %}
+                    <h3>{{ request.user.username }}</h3>
+                    <p>{% if request.user.is_staff %}Administrator{% else %}User{% endif %}</p>
+                {% else %}
+                    <h3>Guest</h3>
+                    <p>Not logged in</p>
+                {% endif %}
             </div>
         </div>
         <ul class="sidebar-menu">
@@ -226,8 +231,13 @@
                     <span class="badge">3</span>
                 </div>
                 <img src="{% static 'img/profile.jpg' %}" alt="user-img" style="width: 32px; height: 32px; border-radius: 50%;">
-                <span>Hizrian</span>
-                <a href="{% url 'admin:logout' %}" style="color: #667eea; text-decoration: none;">Logout</a>
+                {% if request.user.is_authenticated %}
+                    <span>{{ request.user.username }}</span>
+                    <a href="{% url 'account_logout' %}" style="color: #667eea; text-decoration: none;">Logout</a>
+                {% else %}
+                    <span>Guest</span>
+                    <a href="{% url 'account_login' %}" style="color: #667eea; text-decoration: none;">Login</a>
+                {% endif %}
             </div>
         </div>
 

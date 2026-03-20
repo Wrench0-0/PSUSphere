@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 
 from studentorg.views import (
     HomePageView,
@@ -28,6 +28,7 @@ from studentorg.views import (
 urlpatterns = [
     path("", HomePageView.as_view(), name="home"),
     path("admin/", admin.site.urls),
+    path("accounts/", include("allauth.urls")),
     path("organization_list/", OrganizationList.as_view(), name="organization-list"),
     path(
         "organization_list/add/",
