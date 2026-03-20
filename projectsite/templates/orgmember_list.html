@@ -16,9 +16,19 @@
 
     <div class="col-md-12 row px-4">
         <div class="col-md-6">
-            <form class="navbar-left navbar-form nav-search mr-md-3" action="">
+            <form
+                class="navbar-left navbar-form nav-search mr-md-3"
+                action="{% url 'orgmember-list' %}"
+                method="get"
+            >
                 <div class="input-group">
-                    <input type="text" placeholder="Search ..." class="form-control" />
+                    <input
+                        type="text"
+                        placeholder="Search ..."
+                        class="form-control"
+                        name="q"
+                        value="{{ request.GET.q }}"
+                    />
                     <div class="input-group-append">
                         <span class="input-group-text">
                             <i class="la la-search search-icon"></i>
@@ -34,6 +44,27 @@
                 </a>
             </div>
         </div>
+    </div>
+
+    <div class="col-md-12 px-4 mt-3">
+        <form method="get" class="row g-2 align-items-center">
+            <div class="col-auto">
+                <label for="sortSelect" class="col-form-label">Sort by</label>
+            </div>
+            <div class="col-auto">
+                <select class="form-control form-control-sm" id="sortSelect" name="sort_by">
+                    <option value="student_name" {% if request.GET.sort_by == "student_name" %}selected{% endif %}>
+                        Student Name
+                    </option>
+                    <option value="date_joined" {% if request.GET.sort_by == "date_joined" %}selected{% endif %}>
+                        Date Joined
+                    </option>
+                </select>
+            </div>
+            <div class="col-auto">
+                <button type="submit" class="btn btn-primary btn-sm btn-rounded">Sort</button>
+            </div>
+        </form>
     </div>
 
     <div class="card-body">
