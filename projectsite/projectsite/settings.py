@@ -10,7 +10,8 @@ DEBUG = True
 ALLOWED_HOSTS = [
     'wrenchie0.pythonanywhere.com',
     'psusphere.pythonanywhere.com',
-    '127.0.0.1'
+    '127.0.0.1',
+    'localhost',
 ]
 
 INSTALLED_APPS = [
@@ -28,6 +29,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.github',
+    'pwa',
 ]
 
 # django-allauth needs SITE_ID to match the Site stored in the `django_site` table.
@@ -121,3 +123,36 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# --- Progressive Web App Settings ---
+PWA_APP_NAME = 'ProjectSite'
+PWA_APP_DESCRIPTION = "A Progressive Web App version of ProjectSite"
+PWA_APP_THEME_COLOR = '#0A0A0A'
+PWA_APP_BACKGROUND_COLOR = '#FFFFFF'
+PWA_APP_DISPLAY = 'standalone'
+PWA_APP_SCOPE = '/'
+PWA_APP_ORIENTATION = 'portrait'
+PWA_APP_START_URL = '/'
+PWA_APP_STATUS_BAR_COLOR = 'default'
+PWA_APP_ICONS = [
+    {
+        'src': '/static/img/icon-192.png',
+        'sizes': '192x192'
+    },
+    {
+        'src': '/static/img/icon-512.png',
+        'sizes': '512x512'
+    }
+]
+PWA_APP_ICONS_APPLE = [
+    {
+        'src': '/static/img/icon-192.png',
+        'sizes': '192x192'
+    },
+    {
+        'src': '/static/img/icon-512.png',
+        'sizes': '512x512'
+    }
+]
+PWA_APP_DIR = 'ltr'
+PWA_SERVICE_WORKER_PATH = str(BASE_DIR / 'static' / 'js' / 'serviceworker.js')

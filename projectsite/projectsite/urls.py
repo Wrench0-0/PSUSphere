@@ -26,6 +26,7 @@ from studentorg.views import (
 )
 
 urlpatterns = [
+    path('', include('pwa.urls')),
     path("", HomePageView.as_view(), name="home"),
     path("admin/", admin.site.urls),
     path("accounts/", include("allauth.urls")),

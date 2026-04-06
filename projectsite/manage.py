@@ -2,12 +2,6 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
-import socket
-
-if "pythonanywhere" in socket.gethostname():
-    SITE_ID = 2
-else:
-    SITE_ID = 1
 
 def main():
     """Run administrative tasks."""
