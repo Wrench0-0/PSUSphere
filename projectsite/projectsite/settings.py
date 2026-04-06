@@ -26,7 +26,6 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    # Providers (configure OAuth client IDs in the Django Admin)
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.github',
 ]
