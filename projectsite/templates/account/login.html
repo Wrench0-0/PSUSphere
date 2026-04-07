@@ -14,21 +14,110 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            height: 100vh;
-            background-color: #f8f9fc;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 1rem;
         }
         .auth-card {
             max-width: 600px;
             width: 100%;
             background: #fff;
             border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
             padding: 2rem;
+        }
+        .auth-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .auth-header h2 {
+            color: #333;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .social-login-section {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        .social-login-section p {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+        .social-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .social-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            border: 2px solid #e0e0e0;
+            background: #fff;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            min-width: 180px;
+        }
+        .social-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        .social-btn.google {
+            border-color: #4285f4;
+            color: #4285f4;
+        }
+        .social-btn.google:hover {
+            background-color: #f8f9ff;
+        }
+        .social-btn.github {
+            border-color: #333;
+            color: #333;
+        }
+        .social-btn.github:hover {
+            background-color: #f5f5f5;
+        }
+        .social-btn i {
+            margin-right: 0.5rem;
+            font-size: 1.2rem;
+        }
+        .divider {
+            text-align: center;
+            margin: 1.5rem 0;
+            position: relative;
+        }
+        .divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: #e0e0e0;
+        }
+        .divider span {
+            background: #fff;
+            padding: 0 1rem;
+            color: #999;
+            position: relative;
+            font-size: 0.85rem;
+            font-weight: 500;
         }
     </style>
 </head>
 <body>
 <div class="auth-card">
+    <div class="auth-header">
+        <h2>PSUSphere</h2>
+        <p style="color: #999; margin: 0;">Student Organization Hub</p>
+    </div>
+
     <ul class="nav nav-pills nav-justified mb-3" id="ex1" role="tablist">
         <li class="nav-item" role="presentation">
             <a class="nav-link active" id="tab-login" data-mdb-pill-init href="#pills-login" role="tab" aria-controls="pills-login" aria-selected="true">
@@ -44,22 +133,22 @@
 
     <div class="tab-content">
         <div class="tab-pane fade show active" id="pills-login" role="tabpanel" aria-labelledby="tab-login">
-            <form method="post" action="{% url 'account_login' %}">
-                {% csrf_token %}
-
-                <div class="text-center mb-3">
-                    <p>Sign in with:</p>
+            <div class="social-login-section">
+                <p>Sign in with:</p>
+                <div class="social-buttons">
                     {% get_providers as socialaccount_providers %}
                     {% if socialaccount_providers %}
                         {% for provider in socialaccount_providers %}
                             {% provider_login_url provider process="login" as href %}
                             {% if provider.id == "google" %}
-                                <a href="{{ href }}" class="btn btn-link btn-floating mx-1">
+                                <a href="{{ href }}" class="social-btn google">
                                     <i class="fab fa-google"></i>
+                                    <span>Google</span>
                                 </a>
                             {% elif provider.id == "github" %}
-                                <a href="{{ href }}" class="btn btn-link btn-floating mx-1">
+                                <a href="{{ href }}" class="social-btn github">
                                     <i class="fab fa-github"></i>
+                                    <span>GitHub</span>
                                 </a>
                             {% endif %}
                         {% endfor %}
@@ -67,7 +156,12 @@
                         <small class="text-muted d-block">Social login not configured yet.</small>
                     {% endif %}
                 </div>
-                <p class="text-center">or:</p>
+            </div>
+
+            <div class="divider"><span>or</span></div>
+
+            <form method="post" action="{% url 'account_login' %}">
+                {% csrf_token %}
 
                 <div data-mdb-input-init class="form-outline mb-4">
                     <input type="text" name="login" id="id_login" class="form-control" required />
@@ -92,22 +186,22 @@
         </div>
 
         <div class="tab-pane fade" id="pills-register" role="tabpanel" aria-labelledby="tab-register">
-            <form method="post" action="{% url 'account_signup' %}">
-                {% csrf_token %}
-
-                <div class="text-center mb-3">
-                    <p>Sign up with:</p>
+            <div class="social-login-section">
+                <p>Sign up with:</p>
+                <div class="social-buttons">
                     {% get_providers as socialaccount_providers %}
                     {% if socialaccount_providers %}
                         {% for provider in socialaccount_providers %}
                             {% provider_login_url provider process="signup" as href %}
                             {% if provider.id == "google" %}
-                                <a href="{{ href }}" class="btn btn-link btn-floating mx-1">
+                                <a href="{{ href }}" class="social-btn google">
                                     <i class="fab fa-google"></i>
+                                    <span>Google</span>
                                 </a>
                             {% elif provider.id == "github" %}
-                                <a href="{{ href }}" class="btn btn-link btn-floating mx-1">
+                                <a href="{{ href }}" class="social-btn github">
                                     <i class="fab fa-github"></i>
+                                    <span>GitHub</span>
                                 </a>
                             {% endif %}
                         {% endfor %}
@@ -115,7 +209,12 @@
                         <small class="text-muted d-block">Social signup not configured yet.</small>
                     {% endif %}
                 </div>
-                <p class="text-center">or:</p>
+            </div>
+
+            <div class="divider"><span>or</span></div>
+
+            <form method="post" action="{% url 'account_signup' %}">
+                {% csrf_token %}
 
                 <div data-mdb-input-init class="form-outline mb-4">
                     <input type="text" name="username" id="registerUsername" class="form-control" required />

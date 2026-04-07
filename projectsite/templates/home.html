@@ -60,11 +60,19 @@
 
 <div class="card">
     <div class="card-header">
-        <h3 class="card-title">Page Title</h3>
-        <p class="card-subtitle">Page Subtitle</p>
+        <h3 class="card-title">Recent Organizations</h3>
+        <p class="card-subtitle">Latest organizations added</p>
     </div>
     <div class="card-body">
-        <h5>Hello, World</h5>
+        {% for organization in organizations %}
+        <div class="mb-3">
+            <h5>{{ organization.name }}</h5>
+            <p>{{ organization.description }}</p>
+            <small>College: {{ organization.college }}</small>
+        </div>
+        {% empty %}
+        <p>No organizations yet.</p>
+        {% endfor %}
     </div>
 </div>
 

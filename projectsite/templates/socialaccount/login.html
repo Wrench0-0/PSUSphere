@@ -14,29 +14,88 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            height: 100vh;
-            background-color: #f8f9fc;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 1rem;
         }
         .auth-card {
             max-width: 500px;
             width: 100%;
             background: #fff;
             border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
             padding: 2rem;
             text-align: center;
+        }
+        .auth-card h3 {
+            color: #333;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        .auth-card p {
+            color: #666;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+        .provider-logo {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+        .provider-logo.google {
+            color: #4285f4;
+        }
+        .provider-logo.github {
+            color: #333;
+        }
+        .btn-block {
+            width: 100%;
+            display: block;
+        }
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            border: 2px solid;
+            margin-bottom: 0.75rem;
+        }
+        .btn-primary {
+            background-color: #667eea;
+            border-color: #667eea;
+            color: white;
+        }
+        .btn-primary:hover {
+            background-color: #5568d3;
+            border-color: #5568d3;
+            transform: translateY(-2px);
+        }
+        .btn-outline-secondary {
+            background-color: transparent;
+            border-color: #999;
+            color: #999;
+        }
+        .btn-outline-secondary:hover {
+            background-color: #f5f5f5;
+            border-color: #666;
+            color: #666;
         }
     </style>
 </head>
 <body>
 <div class="auth-card">
-    <h3 class="mb-4">Confirm Sign In</h3>
-    <p class="mb-3">
+    <div class="provider-logo {% if provider.id == 'google' %}google{% elif provider.id == 'github' %}github{% endif %}">
+        {% if provider.id == 'google' %}<i class="fab fa-google"></i>{% elif provider.id == 'github' %}<i class="fab fa-github"></i>{% endif %}
+    </div>
+    <h3>Confirm Sign In</h3>
+    <p>
         You are about to sign in using your <strong>{{ provider.name }}</strong> account.
     </p>
     <form method="post">
         {% csrf_token %}
-        <button type="submit" class="btn btn-primary btn-block mb-3">
+        <button type="submit" class="btn btn-primary btn-block">
+            <i class="fab fa-{% if provider.id == 'google' %}google{% elif provider.id == 'github' %}github{% endif %}"></i>
             Continue with {{ provider.name }}
         </button>
     </form>
