@@ -1,5 +1,5 @@
 from pathlib import Path
-import socket
+import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -33,11 +33,8 @@ INSTALLED_APPS = [
 ]
 
 # django-allauth needs SITE_ID to match the Site stored in the `django_site` table.
-# Local/dev vs deployed host may use a different Site row, so we switch based on hostname.
-if "pythonanywhere" in socket.gethostname():
-    SITE_ID = 2
-else:
-    SITE_ID = 1
+# Use environment variable or default to 1. Set SITE_ID=2 on PythonAnywhere if needed.
+SITE_ID = int(os.environ.get('SITE_ID', 1))
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
