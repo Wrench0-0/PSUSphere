@@ -89,4 +89,4 @@ You can add, edit, and delete records directly from the admin interface.
 Faker
 
 The project uses Faker to generate sample data.
-This makes it easier to test the system without manually entering data.
+This makes it easier to test the system without manually entering data...........
