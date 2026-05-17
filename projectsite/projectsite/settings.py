@@ -34,7 +34,7 @@ INSTALLED_APPS = [
 
 # django-allauth needs SITE_ID to match the Site stored in the `django_site` table.
 # Use environment variable or default to 1. Set SITE_ID=2 on PythonAnywhere if needed.
-SITE_ID = int(os.environ.get('SITE_ID', 1))
+SITE_ID = 2
 
 # Social Account Settings
 SOCIALACCOUNT_LOGIN_ON_GET = True
