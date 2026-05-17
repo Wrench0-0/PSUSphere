@@ -1,0 +1,88 @@
+{% load i18n %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Login Failure - PSUSphere</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.2/mdb.min.css" />
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 1rem;
+        }
+        .auth-card {
+            max-width: 500px;
+            width: 100%;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+            padding: 2.5rem;
+            text-align: center;
+        }
+        .error-icon {
+            font-size: 4rem;
+            color: #dc3545;
+            margin-bottom: 1.5rem;
+        }
+        .auth-header h2 {
+            color: #333;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .error-message {
+            color: #666;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+        .btn-return {
+            background: #667eea;
+            color: white;
+            border-radius: 8px;
+            padding: 0.75rem 1.5rem;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        .btn-return:hover {
+            background: #764ba2;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+<div class="auth-card">
+    <div class="error-icon">
+        <i class="fas fa-exclamation-circle"></i>
+    </div>
+    <div class="auth-header">
+        <h2>Login Failure</h2>
+        <p style="color: #999; margin-bottom: 1.5rem;">PSUSphere - Student Organization Hub</p>
+    </div>
+    <div class="error-message">
+        <p>
+            {% trans "An error occurred while attempting to login via your third-party account." %}
+        </p>
+        {% if auth_error %}
+            <div class="alert alert-light border small text-start mt-3">
+                <strong>Error Details:</strong><br>
+                {{ auth_error.code }}: {{ auth_error.exception }}
+            </div>
+        {% endif %}
+    </div>
+    <a href="{% url 'account_login' %}" class="btn-return">
+        <i class="fas fa-arrow-left me-2"></i> Back to Login
+    </a>
+</div>
+</body>
+</html>

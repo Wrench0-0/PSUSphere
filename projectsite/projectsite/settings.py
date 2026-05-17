@@ -36,6 +36,13 @@ INSTALLED_APPS = [
 # Use environment variable or default to 1. Set SITE_ID=2 on PythonAnywhere if needed.
 SITE_ID = int(os.environ.get('SITE_ID', 1))
 
+# Social Account Settings
+SOCIALACCOUNT_LOGIN_ON_GET = True
+SOCIALACCOUNT_QUERY_EMAIL = True
+SOCIALACCOUNT_ADAPTER = 'projectsite.adapter.MySocialAccountAdapter'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = "none" # Optional: set to "mandatory" if needed
+
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
