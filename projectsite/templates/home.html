@@ -4,7 +4,7 @@
 {% block title %}Home - PSUSphere{% endblock %}
 
 {% block content %}
-<h2 style="font-size: 24px; font-weight: 600; margin-bottom: 25px;">Home</h2>
+<h2 style="font-size: 24px; font-weight: 600; margin-bottom: 25px; color: #333;">Home</h2>
 
 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-bottom: 30px;">
     <div class="stat-card stat-orange">
@@ -19,7 +19,7 @@
 
     <div class="stat-card stat-green">
         <div class="stat-icon">
-            <i class="fas fa-chart-bar"></i>
+            <i class="fas fa-chart-line"></i>
         </div>
         <div class="stat-content">
             <h3>{{ joined_this_year_count }}</h3>
@@ -47,7 +47,7 @@
         </div>
     </div>
 
-    <div class="stat-card stat-blue">
+    <div class="stat-card stat-lightblue">
         <div class="stat-icon">
             <i class="fas fa-check-circle"></i>
         </div>
@@ -58,20 +58,23 @@
     </div>
 </div>
 
-<div class="card">
-    <div class="card-header">
-        <h3 class="card-title">Recent Organizations</h3>
-        <p class="card-subtitle">Latest organizations added</p>
+<div class="card" style="border-radius: 12px; border: none; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+    <div class="card-header" style="background: transparent; border-bottom: 1px solid #f0f0f0; padding: 25px 30px;">
+        <h3 class="card-title" style="font-size: 18px; color: #333; font-weight: 700;">Recent Organizations</h3>
+        <p class="card-subtitle" style="color: #999; margin-top: 5px;">Latest organizations added</p>
     </div>
-    <div class="card-body">
-        {% for organization in organizations %}
-        <div class="mb-3">
-            <h5>{{ organization.name }}</h5>
-            <p>{{ organization.description }}</p>
-            <small>College: {{ organization.college }}</small>
+    <div class="card-body" style="padding: 30px;">
+        {% for organization in recent_organizations %}
+        <div class="mb-4" style="border-bottom: {% if not forloop.last %}1px solid #f9f9f9{% else %}none{% endif %}; padding-bottom: {% if not forloop.last %}20px{% else %}0{% endif %};">
+            <h4 style="font-size: 22px; color: #555; margin-bottom: 12px; font-weight: 400;">{{ organization.name }}</h4>
+            <p style="color: #666; font-size: 15px; margin-bottom: 10px; line-height: 1.6;">{{ organization.description }}</p>
+            <p style="color: #999; font-size: 13px; margin: 0;">College: {{ organization.college.college_name|default:"General" }}</p>
         </div>
         {% empty %}
-        <p>No organizations yet.</p>
+        <div class="text-center py-5">
+            <i class="fas fa-folder-open fa-3x mb-3 text-muted"></i>
+            <p class="text-muted">No organizations yet.</p>
+        </div>
         {% endfor %}
     </div>
 </div>

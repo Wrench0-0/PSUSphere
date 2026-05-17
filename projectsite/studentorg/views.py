@@ -34,6 +34,9 @@ class HomePageView(ListView):
         context["joined_this_year_count"] = OrgMember.objects.filter(
             date_joined__year=current_year
         ).count()
+        
+        # Provide a separate list for the "Recent Organizations" section
+        context["recent_organizations"] = Organization.objects.all().order_by("-created_at")[:3]
 
         return context
 

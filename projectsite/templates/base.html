@@ -8,161 +8,288 @@
     <title>{% block title %}PSUSphere - Student Organizations{% endblock %}</title>
     {% progressive_web_app_meta %}
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-    <link rel="stylesheet" href="{% static 'css/ready.min.css' %}">
-    <link rel="stylesheet" href="{% static 'css/demo.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     {% block extra_css %}{% endblock %}
     <style>
         * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
         }
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f3f3f3;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f5f7fa;
             display: flex;
+            min-height: 100vh;
+            color: #333;
         }
         .sidebar {
-            width: 250px;
+            width: 260px;
             background-color: #fff;
             height: 100vh;
-            padding: 20px;
-            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
-            overflow-y: auto;
+            padding: 25px 15px;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.03);
             position: fixed;
             left: 0;
             top: 0;
-            z-index: 1000;
-            transition: transform 0.3s ease-in-out;
+            z-index: 1050;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .sidebar-header {
             display: flex;
             align-items: center;
-            margin-bottom: 30px;
-            gap: 10px;
+            margin-bottom: 40px;
+            padding: 0 10px;
+            gap: 15px;
         }
         .sidebar-header-avatar {
-            width: 40px;
-            height: 40px;
+            width: 42px;
+            height: 42px;
             border-radius: 50%;
-            background: #667eea;
+            background: #5c67f2;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-weight: bold;
+            font-weight: 700;
+            font-size: 18px;
+            flex-shrink: 0;
         }
         .sidebar-header-text h3 {
-            font-size: 14px;
+            font-size: 15px;
             margin: 0;
             font-weight: 600;
+            color: #444;
         }
         .sidebar-header-text p {
             font-size: 12px;
-            color: #999;
+            color: #aaa;
             margin: 0;
         }
         .sidebar-menu {
             list-style: none;
+            padding: 0;
         }
         .sidebar-menu li {
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
         .sidebar-menu a {
-            color: #666;
+            color: #777;
             text-decoration: none;
             display: flex;
             align-items: center;
-            gap: 10px;
-            padding: 10px 15px;
-            border-radius: 5px;
+            gap: 12px;
+            padding: 12px 15px;
+            border-radius: 10px;
             font-size: 14px;
-            transition: all 0.3s;
+            font-weight: 500;
+            transition: all 0.2s ease;
         }
-        .sidebar-menu a:hover, .sidebar-menu a.active {
-            background-color: #f0f0f0;
-            color: #667eea;
+        .sidebar-menu a:hover {
+            background-color: #f8f9ff;
+            color: #5c67f2;
+        }
+        .sidebar-menu a.active {
+            background-color: #f0f2ff;
+            color: #5c67f2;
         }
         .sidebar-menu a i {
             width: 20px;
+            font-size: 16px;
+            text-align: center;
         }
         .install-btn {
             width: 100%;
             padding: 12px;
-            background-color: #667eea;
+            background-color: #5c67f2;
             color: white;
             border: none;
-            border-radius: 5px;
-            margin-top: 20px;
+            border-radius: 10px;
+            margin-top: 30px;
             cursor: pointer;
             display: none;
             align-items: center;
             justify-content: center;
             gap: 10px;
-            font-size: 14px;
-            font-weight: 500;
-            transition: background-color 0.3s;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.2s;
+            box-shadow: 0 4px 12px rgba(92, 103, 242, 0.2);
         }
         .install-btn:hover {
-            background-color: #5566d4;
+            background-color: #4a54e1;
+            transform: translateY(-1px);
         }
         .main-wrapper {
-            margin-left: 250px;
+            margin-left: 260px;
             flex: 1;
             display: flex;
             flex-direction: column;
+            width: calc(100% - 260px);
             min-height: 100vh;
-            transition: margin-left 0.3s ease-in-out;
+            background-color: #f5f7fa;
         }
         .topbar {
             background-color: #fff;
-            padding: 15px 30px;
+            padding: 0 40px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 15px rgba(0,0,0,0.03);
             position: sticky;
             top: 0;
-            z-index: 900;
+            z-index: 1000;
+            height: 70px;
+            width: 100%;
         }
         .menu-toggle {
             display: none;
-            background: none;
+            background: #f8f9ff;
             border: none;
-            font-size: 20px;
-            color: #666;
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            font-size: 18px;
+            color: #5c67f2;
             cursor: pointer;
-            margin-right: 15px;
+            margin-right: 20px;
         }
         .search-bar {
             flex: 1;
-            max-width: 300px;
+            max-width: 320px;
         }
         .search-bar input {
             width: 100%;
-            padding: 8px 15px;
-            border: 1px solid #ddd;
-            border-radius: 20px;
-            background-color: #f5f5f5;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 25px;
+            background-color: #f1f3f7;
+            font-size: 14px;
+            color: #666;
+            outline: none;
+            transition: background-color 0.2s;
+        }
+        .search-bar input:focus {
+            background-color: #e9ecf1;
         }
         .topbar-right {
             display: flex;
-            gap: 15px;
+            gap: 25px;
             align-items: center;
         }
+        .topbar-icons {
+            display: flex;
+            gap: 20px;
+            color: #888;
+            font-size: 18px;
+        }
+        .icon-wrapper {
+            position: relative;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        .icon-wrapper:hover {
+            color: #5c67f2;
+        }
         .topbar-right .badge {
-            background-color: #667eea;
+            position: absolute;
+            top: -5px;
+            right: -8px;
+            background-color: #5c67f2;
             color: white;
-            padding: 4px 8px;
+            width: 18px;
+            height: 18px;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             border-radius: 50%;
             font-size: 10px;
+            border: 2px solid #fff;
+        }
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding-left: 20px;
+            border-left: 1px solid #eee;
+        }
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+        }
+        .user-name {
+            font-weight: 500;
+            color: #444;
+        }
+        .auth-link {
+            color: #5c67f2;
+            text-decoration: none;
+            font-weight: 600;
         }
         .main-content {
             flex: 1;
-            padding: 20px;
+            padding: 40px;
+        }
+        
+        /* Stat Cards */
+        .stat-card {
+            border-radius: 12px;
+            padding: 25px;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            transition: transform 0.2s;
+        }
+        .stat-card:hover {
+            transform: translateY(-3px);
+        }
+        .stat-icon {
+            font-size: 36px;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255,255,255,0.2);
+            border-radius: 12px;
+        }
+        .stat-content h3 {
+            font-size: 32px;
+            margin: 0;
+            font-weight: 700;
+        }
+        .stat-content p {
+            margin: 0;
+            font-size: 13px;
+            opacity: 0.9;
+            font-weight: 500;
+        }
+        .stat-orange { background: linear-gradient(135deg, #ff9a44 0%, #ff6b3d 100%); }
+        .stat-green { background: linear-gradient(135deg, #66bb6a 0%, #43a047 100%); }
+        .stat-red { background: linear-gradient(135deg, #ff5252 0%, #f44336 100%); }
+        .stat-blue { background: linear-gradient(135deg, #42a5f5 0%, #1e88e5 100%); }
+        .stat-lightblue { background: linear-gradient(135deg, #26c6da 0%, #00acc1 100%); }
+
+        footer {
+            padding: 30px 40px;
+            text-align: center;
+            font-size: 13px;
+            color: #aaa;
+            background: transparent;
         }
 
-        /* Mobile Responsive */
+        /* Responsive */
         @media (max-width: 991px) {
             .sidebar {
                 transform: translateX(-100%);
@@ -172,22 +299,30 @@
             }
             .main-wrapper {
                 margin-left: 0 !important;
+                width: 100% !important;
             }
             .menu-toggle {
                 display: block;
             }
             .topbar {
-                padding: 15px;
-            }
-            .topbar-right span {
-                display: none;
+                padding: 0 20px;
+                width: 100%;
             }
             .search-bar {
                 display: none;
             }
+            .main-content {
+                padding: 25px 20px;
+            }
+            .topbar-right .user-name {
+                display: none;
+            }
+            .user-profile {
+                padding-left: 10px;
+                border-left: none;
+            }
         }
 
-        /* Overlay when sidebar is open on mobile */
         .sidebar-overlay {
             display: none;
             position: fixed;
@@ -195,80 +330,12 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.3);
+            background: rgba(0,0,0,0.4);
             z-index: 999;
+            backdrop-filter: blur(2px);
         }
         .sidebar-overlay.show {
             display: block;
-        }
-        .stat-card {
-            background: white;
-            border-radius: 8px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            color: white;
-        }
-        .stat-icon {
-            font-size: 40px;
-            width: 60px;
-            height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 5px;
-        }
-        .stat-content h3 {
-            font-size: 28px;
-            margin: 0;
-        }
-        .stat-content p {
-            margin: 0;
-            font-size: 12px;
-        }
-        .stat-orange {
-            background: linear-gradient(135deg, #FFA500 0%, #FF8C00 100%);
-        }
-        .stat-green {
-            background: linear-gradient(135deg, #66BB6A 0%, #43A047 100%);
-        }
-        .stat-red {
-            background: linear-gradient(135deg, #FF5252 0%, #FF3838 100%);
-        }
-        .stat-blue {
-            background: linear-gradient(135deg, #1E88E5 0%, #1565C0 100%);
-        }
-        .card {
-            border: none;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-        }
-        .card-header {
-            background-color: #fff;
-            border-bottom: 1px solid #eee;
-            padding: 20px;
-        }
-        .card-title {
-            font-weight: 600;
-            margin: 0;
-        }
-        .card-subtitle {
-            font-size: 12px;
-            color: #999;
-        }
-        .card-body {
-            padding: 20px;
-        }
-        footer {
-            background-color: #fff;
-            padding: 20px 30px;
-            border-top: 1px solid #eee;
-            text-align: center;
-            font-size: 12px;
-            color: #999;
         }
     </style>
 </head>
@@ -312,19 +379,27 @@
                 </div>
             </div>
             <div class="topbar-right">
-                <i class="fas fa-envelope"></i>
-                <div style="position: relative;">
-                    <i class="fas fa-bell"></i>
-                    <span class="badge">3</span>
+                <div class="topbar-icons">
+                    <div class="icon-wrapper">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="icon-wrapper">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge">3</span>
+                    </div>
                 </div>
-                <img src="{% static 'img/profile.jpg' %}" alt="user-img" style="width: 32px; height: 32px; border-radius: 50%;">
-                {% if request.user.is_authenticated %}
-                    <span>{{ request.user.username }}</span>
-                    <a href="{% url 'account_logout' %}" style="color: #667eea; text-decoration: none;">Logout</a>
-                {% else %}
-                    <span>Guest</span>
-                    <a href="{% url 'account_login' %}" style="color: #667eea; text-decoration: none;">Login</a>
-                {% endif %}
+                <div class="user-profile">
+                    <img src="{% static 'img/profile.jpg' %}" alt="user" class="user-avatar">
+                    <div class="user-info">
+                        {% if request.user.is_authenticated %}
+                            <span class="user-name">{{ request.user.username }}</span>
+                            <a href="{% url 'account_logout' %}" class="auth-link">Logout</a>
+                        {% else %}
+                            <span class="user-name">Guest</span>
+                            <a href="{% url 'account_login' %}" class="auth-link">Login</a>
+                        {% endif %}
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -336,8 +411,6 @@
             <p>&copy; {% now "Y" %} PSUSphere - All rights reserved.</p>
         </footer>
     </div>
-
-
 
     <script src="{% static 'js/core/jquery.3.2.1.min.js' %}"></script>
     <script src="{% static 'js/core/popper.min.js' %}"></script>
@@ -353,13 +426,13 @@
     <script src="{% static 'js/ready.min.js' %}"></script>
     <script>
         $(document).ready(function() {
-            // Sidebar Toggle
+            // Mobile Sidebar Toggle
             $('.menu-toggle, .sidebar-overlay').on('click', function() {
                 $('.sidebar').toggleClass('show');
                 $('.sidebar-overlay').toggleClass('show');
             });
 
-            // Close sidebar when clicking a menu item on mobile
+            // Close sidebar when clicking link on mobile
             $('.sidebar-menu a').on('click', function() {
                 if ($(window).width() <= 991) {
                     $('.sidebar').removeClass('show');
@@ -367,7 +440,7 @@
                 }
             });
 
-            // PWA Installation Logic
+            // PWA Installation
             let deferredPrompt;
             const installBtn = document.getElementById('installApp');
 
