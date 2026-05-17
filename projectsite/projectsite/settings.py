@@ -14,6 +14,9 @@ ALLOWED_HOSTS = [
     'localhost',
 ]
 
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+USE_X_FORWARDED_HOST = True
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -42,6 +45,7 @@ SOCIALACCOUNT_QUERY_EMAIL = True
 SOCIALACCOUNT_ADAPTER = 'projectsite.adapter.MySocialAccountAdapter'
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = "none" # Optional: set to "mandatory" if needed
+ACCOUNT_DEFAULT_HTTP_PROTOCOL = "https"
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
